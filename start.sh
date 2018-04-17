@@ -32,6 +32,10 @@ set -e
 chown -R www.www $DATA_DIR
 ln -s /usr/local/php/bin/php /usr/local/bin
 
+#Add composer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+
 if [[ -n "$PROXY_WEB" ]]; then
 
     [ -f "${Nginx_Install_Dir}/conf/ssl" ] || mkdir -p $Nginx_Install_Dir/conf/ssl
@@ -69,7 +73,3 @@ if [[ -n "$PROXY_WEB" ]]; then
 fi
 
 /usr/bin/supervisord -n -c /etc/supervisord.conf
-
-#Add composer
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
